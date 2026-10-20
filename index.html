@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111113" />
+    <meta name="description" content="Bend light into something unexpected. Create, customize, and export iridescent liquid gradients with Chroma, a free browser-based design studio." />
+    <title>Chroma — Liquid gradient studio</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <a href="./" class="brand" aria-label="Chroma home">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+          <span class="brand-name">chroma<span class="brand-period">.</span></span>
+          <span class="brand-tagline">LIQUID GRADIENT STUDIO</span>
+        </a>
+        <div class="header-actions">
+          <button class="text-button guide-button" id="guide-button"><i data-icon="help"></i><span>How it works</span></button>
+          <span class="header-divider"></span>
+          <button class="button button-primary" id="export-button"><i data-icon="download"></i><span>Export gradient</span><span class="shortcut">↗</span></button>
+        </div>
+      </header>
+
+      <main>
+        <div class="page-heading">
+          <div><div class="eyebrow"><span class="tiny-spark">✦</span> A PLAYGROUND FOR LIGHT</div><h1>Liquid, by design<span>.</span></h1><p>A little chaos. A little color. Something entirely yours.</p></div>
+          <div class="heading-note"><span class="status-dot"></span> Infinite possibilities. Zero rules.</div>
+        </div>
+
+        <div class="editor-grid">
+          <section class="canvas-column" aria-label="Gradient canvas and presets">
+            <div class="canvas-toolbar">
+              <div class="canvas-label"><span class="status-dot"></span><span>LIVE PREVIEW</span></div>
+              <div class="canvas-tools">
+                <button class="icon-button" id="undo-button" title="Undo (Ctrl/⌘ Z)" aria-label="Undo" disabled><i data-icon="undo"></i></button>
+                <button class="icon-button" id="redo-button" title="Redo (Ctrl/⌘ Shift Z)" aria-label="Redo" disabled><i data-icon="redo"></i></button>
+                <span class="tool-divider"></span>
+                <button class="button button-subtle shuffle-button" id="shuffle-button" title="Shuffle gradient (Space)"><i data-icon="shuffle"></i>Shuffle<span class="keycap">↵</span></button>
+              </div>
+            </div>
+            <div class="canvas-stage" id="canvas-stage">
+              <div class="artboard" id="artboard"><canvas id="gradient-canvas" aria-label="Live preview of your chromatic liquid gradient"></canvas></div>
+              <div class="canvas-badge"><span class="badge-dot"></span><span id="canvas-preset-name">CHROMATIC FLOW</span></div>
+              <div class="canvas-error" id="canvas-error" hidden><i data-icon="warning"></i><h2>A little more graphics power, please.</h2><p>This studio needs WebGL. Enable hardware acceleration in your browser, then reload to start creating.</p></div>
+              <div class="canvas-floating-tools">
+                <button id="play-button" class="floating-button" aria-label="Animate gradient" aria-pressed="false"><i data-icon="play"></i><span>Animate</span></button>
+                <span></span>
+                <button id="rotate-button" class="floating-button floating-icon" title="Rotate 90°" aria-label="Rotate gradient 90 degrees"><i data-icon="rotate"></i></button>
+                <button id="fullscreen-button" class="floating-button floating-icon" title="Full screen" aria-label="Enter full screen"><i data-icon="expand"></i></button>
+              </div>
+              <div class="canvas-corner">REAL-TIME / WEBGL</div>
+            </div>
+            <div class="canvas-bottom-bar">
+              <div class="aspect-control"><i data-icon="ratio"></i><label for="aspect-select" class="sr-only">Canvas aspect ratio</label><select id="aspect-select"><option value="landscape">Landscape · 3:2</option><option value="square">Square · 1:1</option><option value="portrait">Portrait · 2:3</option><option value="wallpaper">Wallpaper · 16:9</option></select><i data-icon="chevron-down"></i></div>
+              <span class="resolution-label" id="resolution-label">2400 × 1600</span>
+              <div class="canvas-bottom-right"><span class="autosave-note"><i data-icon="check"></i> All changes saved locally</span><button class="icon-button" id="save-button" title="Save to your collection" aria-label="Save to your collection"><i data-icon="bookmark"></i></button></div>
+            </div>
+
+            <section class="presets-section" aria-labelledby="presets-heading">
+              <div class="section-heading"><div><h2 id="presets-heading">A place to start</h2><span>Find a mood. Make it your own.</span></div><button class="text-button collection-button" id="collection-button">Your collection <i data-icon="arrow-up-right"></i></button></div>
+              <div class="presets-grid" id="presets-grid"></div>
+            </section>
+          </section>
+
+          <aside class="controls-panel" aria-label="Gradient settings">
+            <div class="panel-heading"><div><i data-icon="sliders"></i><h2>Make it yours</h2></div><button class="icon-button" id="reset-button" title="Reset to preset" aria-label="Reset to preset"><i data-icon="reset"></i></button></div>
+            <div class="panel-body">
+              <section class="control-section surface-section"><div class="control-section-label">SURFACE</div><div class="segmented-control" id="shape-control" role="group" aria-label="Surface shape"><button data-shape="0" class="selected" aria-pressed="true"><i data-icon="waves"></i>Liquid</button><button data-shape="1" aria-pressed="false"><i data-icon="ribbon"></i>Ribbon</button><button data-shape="2" aria-pressed="false"><i data-icon="bloom"></i>Bloom</button></div></section>
+              <section class="control-section palette-section"><div class="label-row"><label class="control-section-label">COLOR PALETTE</label><button class="icon-button small" id="palette-shuffle" title="Try another color palette" aria-label="Shuffle color palette"><i data-icon="shuffle"></i></button></div><div class="palette-colors" id="palette-colors"></div><p class="control-hint">Click a color to change the spectrum.</p></section>
+              <div class="panel-divider"></div>
+              <section class="control-section light-section" aria-labelledby="light-heading"><div class="label-row"><h3 id="light-heading">Light & liquid</h3><i class="section-icon" data-icon="sun"></i></div>
+                <div class="slider-control"><div class="slider-label"><label for="flow">Flow</label><output for="flow" id="flow-value">55</output></div><input type="range" id="flow" min="0" max="100" value="55" data-setting="flow" /><div class="range-labels"><span>Still</span><span>Fluid</span></div></div>
+                <div class="slider-control"><div class="slider-label"><label for="intensity">Iridescence</label><output for="intensity" id="intensity-value">90</output></div><input type="range" id="intensity" min="0" max="100" value="90" data-setting="intensity" /></div>
+                <div class="slider-control"><div class="slider-label"><label for="distortion">Distortion</label><output for="distortion" id="distortion-value">45</output></div><input type="range" id="distortion" min="0" max="100" value="45" data-setting="distortion" /></div>
+                <div class="slider-control"><div class="slider-label"><label for="scale">Scale</label><output for="scale" id="scale-value">50</output></div><input type="range" id="scale" min="0" max="100" value="50" data-setting="scale" /><div class="range-labels"><span>Expansive</span><span>Close-up</span></div></div>
+              </section>
+              <div class="panel-divider"></div>
+              <details class="fine-details"><summary><span><i data-icon="sparkles"></i>Glass & fine details</span><i data-icon="chevron-down"></i></summary><div class="details-content">
+                              <p class="control-hint">Shape the light, not just the color.</p>
+                              <div class="slider-control"><div class="slider-label"><label for="dispersion">Chromatic dispersion</label><output for="dispersion" id="dispersion-value">78</output></div><input type="range" id="dispersion" min="0" max="100" value="78" data-setting="dispersion" /><div class="range-labels"><span>Clear glass</span><span>Prismatic</span></div></div>
+                              <div class="slider-control"><div class="slider-label"><label for="thickness">Glass depth</label><output for="thickness" id="thickness-value">48</output></div><input type="range" id="thickness" min="0" max="100" value="48" data-setting="thickness" /></div>
+                              <div class="slider-control"><div class="slider-label"><label for="exposure">Exposure</label><output for="exposure" id="exposure-value">55</output></div><input type="range" id="exposure" min="0" max="100" value="55" data-setting="exposure" /></div>
+                <div class="slider-control"><div class="slider-label"><label for="softness">Softness</label><output for="softness" id="softness-value">18</output></div><input type="range" id="softness" min="0" max="100" value="18" data-setting="softness" /></div>
+                <div class="slider-control"><div class="slider-label"><label for="grain">Film grain</label><output for="grain" id="grain-value">4</output></div><input type="range" id="grain" min="0" max="100" value="4" data-setting="grain" /></div>
+                <div class="slider-control"><div class="slider-label"><label for="rotation">Rotation</label><output for="rotation" id="rotation-value">0°</output></div><input type="range" id="rotation" min="0" max="360" value="0" data-setting="rotation" /></div>
+              </div></details>
+              <div class="panel-divider"></div>
+              <section class="motion-section"><div class="motion-row"><div><h3>Let it flow</h3><p>Give your gradient a little life.</p></div><button id="motion-toggle" class="toggle" role="switch" aria-checked="false" aria-label="Animate gradient"><span></span></button></div><div class="slider-control motion-speed" id="motion-speed" hidden><div class="slider-label"><label for="speed">Motion speed</label><output for="speed" id="speed-value">30</output></div><input type="range" id="speed" min="0" max="100" value="30" data-setting="speed" /></div></section>
+              <div class="seed-control"><span><i data-icon="hash"></i><label for="seed-input">Seed</label></span><div><input id="seed-input" type="number" min="1" max="999999" value="42" aria-label="Random seed" /><button class="icon-button small" id="seed-button" title="Generate a new seed" aria-label="Generate a new seed"><i data-icon="refresh"></i></button></div></div>
+            </div>
+            <div class="panel-footer"><i data-icon="infinity"></i><span>No two flows are ever the same.</span></div>
+          </aside>
+        </div>
+        <footer class="page-footer"><span>Made for the beautifully unpredictable.</span><span><i data-icon="lock"></i> On your device. Always. <span class="footer-dot">·</span> Free to create. Free to use.</span></footer>
+      </main>
+    </div>
+
+    <dialog id="export-dialog" class="modal export-modal"><form id="export-form"><div class="modal-heading"><div><span class="eyebrow">TAKE A LITTLE LIGHT WITH YOU</span><h2>Your next great background.</h2></div><button type="button" class="icon-button close-dialog" aria-label="Close export dialog"><i data-icon="close"></i></button></div><p class="modal-description">A high-quality PNG, ready for whatever you’re making.</p><label for="export-size" class="field-label">Resolution</label><select id="export-size" class="select-field"><option value="1600">Standard · 1600 px</option><option value="2400" selected>High resolution · 2400 px</option><option value="3840">Ultra HD · 3840 px</option></select><div class="export-info"><span>PNG image <span>·</span> <span id="export-dimensions">2400 × 1600</span></span><span>No watermark. All yours.</span></div><div class="export-error" id="export-error" role="alert" hidden></div><button class="button button-primary export-submit" id="export-submit" type="submit"><i data-icon="download"></i><span>Download PNG</span></button><p class="export-note">Motion is captured as a single, beautiful frame.</p></form></dialog>
+    <dialog id="guide-dialog" class="modal"><div class="modal-heading"><div><span class="eyebrow">WELCOME TO THE FLOW</span><h2>A little exploration goes a long way.</h2></div><button class="icon-button close-dialog" aria-label="Close guide"><i data-icon="close"></i></button></div><div class="guide-steps"><div><span>01</span><div><h3>Find your starting point</h3><p>Pick a preset or hit Shuffle. Every seed creates a new composition of liquid, light, and color.</p></div></div><div><span>02</span><div><h3>Follow your curiosity</h3><p>Change the surface, choose your colors, and play with the sliders. Let it flow adds movement; Glass & fine details controls chromatic dispersion, glass depth, exposure, grain, and softness. For the sharp rainbow edges in the references, keep softness low and dispersion high.</p></div></div><div><span>03</span><div><h3>Make it yours, everywhere</h3><p>Save a favorite to your collection or export a PNG up to 3840 pixels. Everything is generated on your device, with no uploads or account.</p></div></div></div><div class="guide-shortcuts"><span><kbd>Space</kbd> Shuffle</span><span><kbd>⌘ / Ctrl Z</kbd> Undo</span><span><kbd>Esc</kbd> Close</span></div></dialog>
+    <dialog id="collection-dialog" class="modal collection-modal"><div class="modal-heading"><div><span class="eyebrow">GOOD THINGS, KEPT CLOSE</span><h2>Your collection</h2></div><button class="icon-button close-dialog" aria-label="Close collection"><i data-icon="close"></i></button></div><p class="modal-description">Your saved recipes, right here in this browser.</p><div id="collection-items"></div></dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"><i data-icon="check"></i><span></span></div>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
